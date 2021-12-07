@@ -78,6 +78,8 @@ def get_data(config_path):
     
     churn_filtered['churn'] = pd.to_numeric(churn_filtered['churn'])
     
+    churn_filtered=churn_filtered[['total_ic_mou_8','total_og_mou_8', 'arpu_8', 'roam_ic_mou_8', 'roam_og_mou_8', 'std_ic_mou_8', 'av_rech_amt_data_8', 'std_og_mou_8','churn']]
+    
     return churn_filtered
 
 if __name__=="__main__":

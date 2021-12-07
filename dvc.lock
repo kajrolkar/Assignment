@@ -7,61 +7,61 @@ stages:
       md5: 73725fa10f81321be498920582d5ff3e
       size: 79156935
     - path: src/get_data.py
-      md5: e5ef73e31a486ed4a9ac83e9443896f1
-      size: 4323
+      md5: 593864e6f08726077ad0228b98fc376c
+      size: 4507
     - path: src/load_data.py
       md5: e5bb87504b6ea897403bcae1cf75ac38
       size: 607
     outs:
     - path: data/raw/telecom_churn_data.csv
-      md5: ef34a5faa8a0ef3405879d7fe039e572
-      size: 20715752
+      md5: 1a274f7e8b68c2c0e15dccc16579575c
+      size: 1340634
   split_data:
     cmd: python src/split_data.py --config=param.yaml
     deps:
     - path: data/raw/telecom_churn_data.csv
-      md5: ef34a5faa8a0ef3405879d7fe039e572
-      size: 20715752
+      md5: 1a274f7e8b68c2c0e15dccc16579575c
+      size: 1340634
     - path: src/split_data.py
       md5: 0ace318e053a50a239edd4c26b50c353
       size: 1122
     outs:
     - path: data/processed/test.csv
-      md5: 8b64371e96ea1592ee9fea5c2f4bfab3
-      size: 5179781
+      md5: ffee1c773fcc7ac42a83e82e82bcec2f
+      size: 335811
     - path: data/processed/train.csv
-      md5: 50f616a08ae1f7a5adebbf8cfa6ceb90
-      size: 15534008
+      md5: a9484a7d3100282d94352922c9f4ead2
+      size: 1004940
   train_and_evaluate:
     cmd:
     - python src/train_and_evaluate.py --config=param.yaml
     - dvc plots show
     deps:
     - path: data/processed/test.csv
-      md5: 8b64371e96ea1592ee9fea5c2f4bfab3
-      size: 5179781
+      md5: ffee1c773fcc7ac42a83e82e82bcec2f
+      size: 335811
     - path: data/processed/train.csv
-      md5: 50f616a08ae1f7a5adebbf8cfa6ceb90
-      size: 15534008
+      md5: a9484a7d3100282d94352922c9f4ead2
+      size: 1004940
     - path: src/numpyencoder.py
       md5: 0ce35639d3fd131b6eb762dc53908d4a
       size: 996
     - path: src/train_and_evaluate.py
-      md5: 683b676558def31c393b2503e3f6ee19
-      size: 7354
+      md5: 8565dd3e469b47f12b77a250881af3ce
+      size: 8377
     outs:
     - path: cm.csv
-      md5: 17e6fce6c018e1f8e26adf770c4693d7
+      md5: 92fe63f9cc21f59e024568974c34230a
       size: 33147
     - path: report/prc.json
-      md5: 7434f72dfe6f05c12a5d3d10536e3ea3
-      size: 290
+      md5: 5d7ca38cef17c882f32c5b3def21a46b
+      size: 289
     - path: report/roc.json
-      md5: d8152c2cb99b01297dfa2589fa6cde5a
-      size: 360
+      md5: 34bfaf30323aef56cdd0ab50917658e7
+      size: 359
     - path: report/scores.json
-      md5: abc2e9c0f7aee5affe0520fcc9f6b43d
-      size: 150
+      md5: db11f396d66b1279b46cbe5a521e0f16
+      size: 162
     - path: saved_models/model.joblib
-      md5: 6fc383e7cf4d4245f7f4c95f3cae7832
-      size: 5794249
+      md5: f10e1f9e29394b609feb154835285e20
+      size: 871
