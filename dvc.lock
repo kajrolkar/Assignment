@@ -1,0 +1,67 @@
+schema: '2.0'
+stages:
+  load_data:
+    cmd: python src/load_data.py --config=param.yaml
+    deps:
+    - path: data_given/telecom_churn_data.csv
+      md5: 73725fa10f81321be498920582d5ff3e
+      size: 79156935
+    - path: src/get_data.py
+      md5: cbd73e1819be0a427503529ed1ce39a2
+      size: 4247
+    - path: src/load_data.py
+      md5: e5bb87504b6ea897403bcae1cf75ac38
+      size: 607
+    outs:
+    - path: data/raw/telecom_churn_data.csv
+      md5: ef34a5faa8a0ef3405879d7fe039e572
+      size: 20715752
+  split_data:
+    cmd: python src/split_data.py --config=param.yaml
+    deps:
+    - path: data/raw/telecom_churn_data.csv
+      md5: ef34a5faa8a0ef3405879d7fe039e572
+      size: 20715752
+    - path: src/split_data.py
+      md5: 0ace318e053a50a239edd4c26b50c353
+      size: 1122
+    outs:
+    - path: data/processed/test.csv
+      md5: 8b64371e96ea1592ee9fea5c2f4bfab3
+      size: 5179781
+    - path: data/processed/train.csv
+      md5: 50f616a08ae1f7a5adebbf8cfa6ceb90
+      size: 15534008
+  train_and_evaluate:
+    cmd:
+    - python src/train_and_evaluate.py --config=param.yaml
+    - dvc plots show
+    deps:
+    - path: data/processed/test.csv
+      md5: 8b64371e96ea1592ee9fea5c2f4bfab3
+      size: 5179781
+    - path: data/processed/train.csv
+      md5: 50f616a08ae1f7a5adebbf8cfa6ceb90
+      size: 15534008
+    - path: src/numpyencoder.py
+      md5: 0ce35639d3fd131b6eb762dc53908d4a
+      size: 996
+    - path: src/train_and_evaluate.py
+      md5: d3113c87f6ee8c777233d34c399f68a8
+      size: 6272
+    outs:
+    - path: cm.csv
+      md5: fd4ce98d3d39199f1a3c607278d1b44c
+      size: 33147
+    - path: report/prc.json
+      md5: 68c1a0529d18d732c1034f54147ee0f4
+      size: 290
+    - path: report/roc.json
+      md5: 8a76563f697d692e42f32343e736470e
+      size: 357
+    - path: report/scores.json
+      md5: 6a532350e02c3dd5b7989deaf3c2e3c5
+      size: 161
+    - path: saved_models/model.joblib
+      md5: abd7330b41ec8fec0d1b431e27de474d
+      size: 1984
