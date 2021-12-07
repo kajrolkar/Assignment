@@ -76,6 +76,8 @@ def get_data(config_path):
         
     churn_filtered[num_cols] = churn_filtered[num_cols].apply(cap_outliers, axis=0)
     
+    churn_filtered['churn'] = pd.to_numeric(churn_filtered['churn'])
+    
     return churn_filtered
 
 if __name__=="__main__":
